@@ -1,6 +1,6 @@
 # Rental Application
 
-This is an application, which allows to rent a car from database.
+This is a WPF MVVM application, which allows to rent a car from database.
 
 ## Database diagram
 
