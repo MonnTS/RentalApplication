@@ -8,7 +8,7 @@
 
     <Grid>
         <StackPanel Orientation="Vertical">
-            <Label FontSize="16">Select Aviables cars</Label>
+            <Label FontSize="16">Select available cars</Label>
             <ComboBox x:Name="cmbCars" ItemsSource="{Binding RentedCars, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Id" SelectedValue="{Binding Id, Mode=TwoWay}" Width="175" Margin="0 0 600 0" FontSize="16">
                 <ComboBox.ItemTemplate>
