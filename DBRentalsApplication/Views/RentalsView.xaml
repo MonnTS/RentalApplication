@@ -3,35 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:DBRentalsApplication.Views"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding RentalsInformations}" AutoGenerateColumns="False" CanUserAddRows="False" 
+            <DataGrid ItemsSource="{Binding Path=RentalsInformations}" AutoGenerateColumns="False"
+                      CanUserAddRows="False"
                       Background="LightGray" RowBackground="LightGreen" AlternatingRowBackground="LightSalmon"
                       BorderBrush="Gray" BorderThickness="5" FontSize="16" Height="400">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Registration Number" Binding="{Binding RegistrationNumber}"
+                    <DataGridTextColumn Header="Registration Number" Binding="{Binding Path= RegistrationNumber}"
                                         IsReadOnly="True" CanUserReorder="False" />
-                    <DataGridTextColumn Header="Make" Binding="{Binding Make}" IsReadOnly="True" CanUserReorder="False" />
-                    <DataGridTextColumn Header="Model" Binding="{Binding Model}" IsReadOnly="True"
+                    <DataGridTextColumn Header="Make" Binding="{Binding Path=Make}" IsReadOnly="True"
                                         CanUserReorder="False" />
-                    <DataGridTextColumn Header="Driver Name" Binding="{Binding DriverName}" IsReadOnly="True"
+                    <DataGridTextColumn Header="Model" Binding="{Binding Path=Model}" IsReadOnly="True"
                                         CanUserReorder="False" />
-                    <DataGridTextColumn Header="Driver Surname" Binding="{Binding DriverSurname}" IsReadOnly="True"
+                    <DataGridTextColumn Header="Driver Name" Binding="{Binding Path=DriverName}" IsReadOnly="True"
                                         CanUserReorder="False" />
-                    <DataGridTextColumn Header="Rental Date" Binding="{Binding RentDate, StringFormat = dd-MM-yyyy}"
+                    <DataGridTextColumn Header="Driver Surname" Binding="{Binding Path=DriverSurname}"
+                                        IsReadOnly="True"
+                                        CanUserReorder="False" />
+                    <DataGridTextColumn Header="Rental Date"
+                                        Binding="{Binding Path=RentDate, StringFormat = dd-MM-yyyy}"
                                         IsReadOnly="True" CanUserReorder="False" />
-                    <DataGridTextColumn Header="Return Date" Binding="{Binding ReturnDate, StringFormat = dd-MM-yyyy}"
+                    <DataGridTextColumn Header="Return Date"
+                                        Binding="{Binding Path=ReturnDate, StringFormat = dd-MM-yyyy}"
                                         IsReadOnly="True" CanUserReorder="False" />
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal">
-                <Button Content="New Rental" FontSize="16" Command="{Binding MakeNewRentals}" Margin="10" Width="120" Height="40" />
-                <Button Content="Return Car" FontSize="16" Command="{Binding UpdateRental}" Margin="10" Width="120" Height="40" />
-                <Button Content="Delete Rental" FontSize="16" Command="{Binding DeleteRental}" Margin="10" Width="120" Height="40" />
-                <Button Content="Export Data" FontSize="16" Command="{Binding ExportData}" Margin="10" Width="120" Height="40" />
+                <Button Content="New Rental" FontSize="16" Command="{Binding Path=MakeNewRentals}" Margin="10"
+                        Width="120" Height="40" />
+                <Button Content="Return Car" FontSize="16" Command="{Binding Path=UpdateRental}" Margin="10"
+                        Width="120" Height="40" />
+                <Button Content="Delete Rental" FontSize="16" Command="{Binding Path=DeleteRental}" Margin="10"
+                        Width="120" Height="40" />
+                <Button Content="Export Data" FontSize="16" Command="{Binding Path=ExportData}" Margin="10" Width="120"
+                        Height="40" />
             </StackPanel>
         </StackPanel>
     </Grid>

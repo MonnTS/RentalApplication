@@ -9,31 +9,35 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label FontSize="16">Select available cars</Label>
-            <ComboBox x:Name="cmbCars" ItemsSource="{Binding RentedCars, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="Id" SelectedValue="{Binding Id, Mode=TwoWay}" Width="175" Margin="0 0 600 0" FontSize="16">
+            <ComboBox x:Name="cmbCars" ItemsSource="{Binding Path=RentedCars, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="Id" SelectedValue="{Binding Path=Id, Mode=TwoWay}" Width="175"
+                      Margin="0 0 600 0" FontSize="16">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding Make, StringFormat='{}Make: {0}'}"></TextBlock>
-                            <TextBlock Text="{Binding Model, StringFormat='{}Model: {0}'}"></TextBlock>
+                            <TextBlock Text="{Binding Path=Make, StringFormat='{}Make: {0}'}" />
+                            <TextBlock Text="{Binding Path=Model, StringFormat='{}Model: {0}'}" />
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Label FontSize="16">Return Date</Label>
-            <TextBox Width="175" Height="25" Margin="0 0 600 0" Text="{Binding ReturnDate, StringFormat=dd-MM-yyyy}" FontSize="16" />
+            <TextBox Width="175" Height="25" Margin="0 0 600 0"
+                     Text="{Binding Path= ReturnDate, StringFormat=dd-MM-yyyy}" FontSize="16" />
             <Label FontSize="16">Comments</Label>
-            <TextBox Width="500" Height="240" Margin="0 0 280 0" Text="{Binding Comments}" FontSize="16" />
+            <TextBox Width="500" Height="240" Margin="0 0 280 0" Text="{Binding Path=Comments}" FontSize="16" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Back" Command="{Binding CommandBack}" Margin="10 400 10 0" Width="120" Height="40" FontSize="16" />
-            <Button Content="Return Car" Command="{Binding CommandReturn}" Margin="10 400 10 0" Width="120" Height="40" FontSize="16">
+            <Button Content="Back" Command="{Binding Path=CommandBack}" Margin="10 400 10 0" Width="120" Height="40"
+                    FontSize="16" />
+            <Button Content="Return Car" Command="{Binding Path=CommandReturn}" Margin="10 400 10 0" Width="120"
+                    Height="40" FontSize="16">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="IsEnabled" Value="True" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=SelectedItem, ElementName=cmbCars}" Value="{x:Null}">
-                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

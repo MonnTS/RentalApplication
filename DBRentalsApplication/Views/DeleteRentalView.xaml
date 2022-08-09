@@ -7,38 +7,44 @@
              d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <DataGrid ItemsSource="{Binding RentalList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectionMode="Single"
-                      SelectedItem="{Binding Rental, Mode=TwoWay}" AutoGenerateColumns="False"
-                      CanUserAddRows="False" Background="LightGray" RowBackground="LightGreen" AlternatingRowBackground="LightSalmon"
+            <DataGrid ItemsSource="{Binding Path=RentalList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding Path=Rental, Mode=TwoWay}" AutoGenerateColumns="False"
+                      CanUserAddRows="False" Background="LightGray" RowBackground="LightGreen"
+                      AlternatingRowBackground="LightSalmon"
                       BorderBrush="Gray" BorderThickness="5" FontSize="16" Height="400" x:Name="dgCars">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Car Id" Binding="{Binding CarId, Mode=TwoWay}"
+                    <DataGridTextColumn Header="Car Id" Binding="{Binding Path=CarId, Mode=TwoWay}"
                                         IsReadOnly="True" CanUserReorder="False" Width="50" />
-                    <DataGridTextColumn Header="Driver Id" Binding="{Binding DriverId, Mode=TwoWay}" IsReadOnly="True"
+                    <DataGridTextColumn Header="Driver Id" Binding="{Binding Path=DriverId, Mode=TwoWay}"
+                                        IsReadOnly="True"
                                         CanUserReorder="False" />
                     <DataGridTextColumn Header="Rental Date"
-                                        Binding="{Binding RentDate, Mode=TwoWay, StringFormat = dd-MM-yyyy}"
+                                        Binding="{Binding Path=RentDate, Mode=TwoWay, StringFormat = dd-MM-yyyy}"
                                         IsReadOnly="True"
                                         CanUserReorder="False" Width="100" />
                     <DataGridTextColumn Header="Return Date"
-                                        Binding="{Binding ReturnDate, Mode=TwoWay, StringFormat = dd-MM-yyyy}"
+                                        Binding="{Binding Path=ReturnDate, Mode=TwoWay, StringFormat = dd-MM-yyyy}"
                                         IsReadOnly="True"
                                         CanUserReorder="False" Width="100" />
-                    <DataGridTextColumn Header="Comments" Binding="{Binding Comments, Mode=TwoWay}" IsReadOnly="True"
+                    <DataGridTextColumn Header="Comments" Binding="{Binding Path= Comments, Mode=TwoWay}"
+                                        IsReadOnly="True"
                                         CanUserReorder="False" Width="500" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Back" FontSize="16" Command="{Binding BackCommand}" Margin="10 400 10 0" Width="120" Height="40" />
-            <Button Content="Delete rental" FontSize="16" Command="{Binding DeleteRental}" Margin="10 400 10 0" Width="120"
+            <Button Content="Back" FontSize="16" Command="{Binding Path=BackCommand}" Margin="10 400 10 0" Width="120"
+                    Height="40" />
+            <Button Content="Delete rental" FontSize="16" Command="{Binding Path=DeleteRental}" Margin="10 400 10 0"
+                    Width="120"
                     Height="40">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
-                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="IsEnabled" Value="True" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=SelectedItem, ElementName=dgCars}" Value="{x:Null}">
-                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="IsEnabled" Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

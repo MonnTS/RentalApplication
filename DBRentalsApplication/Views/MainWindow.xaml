@@ -8,20 +8,20 @@
         mc:Ignorable="d"
         Title="Car Rental Application" Height="500" Width="800" Background="LightGray">
     <Grid>
-            <Grid.Resources>
-                        <DataTemplate DataType="{x:Type vms:RentalViewModel}">
-                                <views:RentalsView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type vms:CreateRentalViewModel}">
-                                <views:CreateRentalView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type vms:DeleteRentalViewModel}">
-                                <views:DeleteRentalView/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type vms:ReturnRentalViewModel}">
-                                <views:ReturnRentalView/>
-                        </DataTemplate>
-                </Grid.Resources>
-                <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
-        </Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:RentalViewModel}">
+                <views:RentalsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:CreateRentalViewModel}">
+                <views:CreateRentalView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:DeleteRentalViewModel}">
+                <views:DeleteRentalView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ReturnRentalViewModel}">
+                <views:ReturnRentalView />
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding Path=CurrentViewModel}" />
+    </Grid>
 </Window>
