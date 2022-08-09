@@ -18,3 +18,10 @@ This is a WPF MVVM application, which allows to rent a car from database.
 - Deleting information about rentals
 - Export data to CSV File
 - Loggs every user's actions
+
+## Used Technologies
+
+- C#
+- Transact SQL
+- Windows Presentation Foundation
+- Microsoft SQL Server
