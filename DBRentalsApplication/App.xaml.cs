@@ -39,11 +39,11 @@ namespace DBRentalsApplication
             services.AddTransient(x =>
             {
                 var navigationStore = x.GetRequiredService<NavigationStore>();
-                var mainWinow = new MainWindow
+                var mainWindow = new MainWindow
                 {
                     DataContext = new MainViewModel(navigationStore)
                 };
-                return mainWinow;
+                return mainWindow;
             });
             services.AddTransient<DeleteRentalView>();
             services.AddSingleton<DataBaseService>();
