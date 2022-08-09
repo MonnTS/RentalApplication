@@ -10,10 +10,9 @@ namespace DBRentalsApplication.ViewModel;
 
 public class ReturnRentalViewModel : ViewBaseModel
 {
-    private string? _comments;
-    private int _driverId;
     private int _id;
     private DateTime _returnDate = DateTime.Today;
+    private string? _comments;
 
     public ReturnRentalViewModel(DataBaseService dbService, NavigationStore navigationStore)
     {
@@ -29,16 +28,6 @@ public class ReturnRentalViewModel : ViewBaseModel
         {
             _id = value;
             OnPropertyChanged(nameof(Id));
-        }
-    }
-
-    public int DriverId
-    {
-        get => _driverId;
-        set
-        {
-            _driverId = value;
-            OnPropertyChanged(nameof(DriverId));
         }
     }
 
