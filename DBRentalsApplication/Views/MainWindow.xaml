@@ -1,0 +1,27 @@
+﻿<Window x:Class="DBRentalsApplication.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vms="clr-namespace:DBRentalsApplication.ViewModel"
+        xmlns:views="clr-namespace:DBRentalsApplication.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Car Rental Application" Height="500" Width="800" Background="LightGray">
+    <Grid>
+            <Grid.Resources>
+                        <DataTemplate DataType="{x:Type vms:RentalViewModel}">
+                                <views:RentalsView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:CreateRentalViewModel}">
+                                <views:CreateRentalView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:DeleteRentalViewModel}">
+                                <views:DeleteRentalView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:ReturnRentalViewModel}">
+                                <views:ReturnRentalView/>
+                        </DataTemplate>
+                </Grid.Resources>
+                <ContentControl Content="{Binding CurrentViewModel}"></ContentControl>
+        </Grid>
+</Window>
