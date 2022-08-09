@@ -8,20 +8,43 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label FontSize="16">All Drivers</Label>
-            <ComboBox ItemsSource="{Binding Drivers}" DisplayMemberPath="Name" SelectedValuePath="Id"
+            <ComboBox x:Name="cmbDrivers" ItemsSource="{Binding Drivers}" DisplayMemberPath="Name" SelectedValuePath="Id"
                       SelectedValue="{Binding DriverId, Mode=TwoWay}" Width="175" Margin="0 0 600 0" FontSize="16"/>
             <Label FontSize="16">Cars</Label>
-            <ComboBox ItemsSource="{Binding Cars, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Make"
+            <ComboBox x:Name="cmbCars" ItemsSource="{Binding Cars, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Id" SelectedValue="{Binding CarId, Mode=TwoWay}" Width="175"
-                      Margin="0 0 600 0" FontSize="16"/>
+                      Margin="0 0 600 0" FontSize="16">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Make, StringFormat='{}Make: {0}' }"></TextBlock>
+                            <TextBlock Text="{Binding Model, StringFormat='{}Model: {0}'}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Label FontSize="16">Rental Date</Label>
             <TextBox Width="175" Height="25" Margin="0 0 600 0" Text="{Binding RentalDate, StringFormat=dd-MM-yyyy}" FontSize="16"/>
             <Label FontSize="16">Comments</Label>
-            <TextBox Width="500" Height="175" Margin="0 0 275 0" Text="{Binding Comments}" />
+            <TextBox Width="500" Height="175" Margin="0 0 275 0" Text="{Binding Comments}" FontSize="16"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Content="Back" Command="{Binding BackCommand}" Margin="10 400 10 0" Width="120" Height="40" FontSize="16"/>
-            <Button Content="Add rental" Command="{Binding CreateCommand}" Margin="10 400 10 0" Width="120" Height="40" FontSize="16"/>
+            <Button Content="Add rental" Command="{Binding CreateCommand}" Margin="10 400 10 0" Width="120" Height="40" FontSize="16">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=SelectedItem, ElementName=cmbDrivers}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=SelectedItem, ElementName=cmbCars}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

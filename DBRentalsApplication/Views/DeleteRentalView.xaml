@@ -10,7 +10,7 @@
             <DataGrid ItemsSource="{Binding RentalList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectionMode="Single"
                       SelectedItem="{Binding Rental, Mode=TwoWay}" AutoGenerateColumns="False"
                       CanUserAddRows="False" Background="LightGray" RowBackground="LightGreen" AlternatingRowBackground="LightSalmon"
-                      BorderBrush="Gray" BorderThickness="5" FontSize="16" Height="400">
+                      BorderBrush="Gray" BorderThickness="5" FontSize="16" Height="400" x:Name="dgCars">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Car Id" Binding="{Binding CarId, Mode=TwoWay}"
                                         IsReadOnly="True" CanUserReorder="False" Width="50" />
@@ -32,7 +32,18 @@
         <StackPanel Orientation="Horizontal">
             <Button Content="Back" FontSize="16" Command="{Binding BackCommand}" Margin="10 400 10 0" Width="120" Height="40" />
             <Button Content="Delete rental" FontSize="16" Command="{Binding DeleteRental}" Margin="10 400 10 0" Width="120"
-                    Height="40" />
+                    Height="40">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=SelectedItem, ElementName=dgCars}" Value="{x:Null}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
