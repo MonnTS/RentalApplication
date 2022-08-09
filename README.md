@@ -6,6 +6,10 @@ This is a WPF MVVM application, which allows to rent a car from database.
 
 ![Diagram](static/DBDiagram.png)
 
+## Database scrip
+
+![Script](static/DataBaseProd.sql)
+
 ## Features
 
 - Show information about car rentals
