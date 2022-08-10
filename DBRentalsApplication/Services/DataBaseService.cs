@@ -14,8 +14,7 @@ public class DataBaseService
 {
     private readonly ProdContext _dbContext;
     private readonly ILogger<DataBaseService> _logger;
-    public bool IsCompleted { get; private set; }
-    
+
     public DataBaseService(ProdContext dbContext, ILogger<DataBaseService> logger)
     {
         _dbContext = dbContext;
@@ -56,12 +55,10 @@ public class DataBaseService
             
             _logger.LogInformation("Successfully retrieved information from the database.");
             _dbContext.Database.CloseConnection();
-            IsCompleted = true;
         }
         catch (Exception e)
         {
             _logger.LogError("Error while getting rentals information: {ErrorMessage}", e.Message);
-            IsCompleted = false;
         }
         finally
         {
@@ -78,7 +75,7 @@ public class DataBaseService
     /// <param name="carId"></param>
     /// <param name="rentDate"></param>
     /// <param name="comments"></param>
-    public void MakeNewRental(int driverId, int carId, DateTime rentDate, string? comments)
+    public bool MakeNewRental(int driverId, int carId, DateTime rentDate, string? comments)
     {
         try
         {
@@ -95,13 +92,13 @@ public class DataBaseService
             _dbContext.SaveChanges();
             _dbContext.Database.CloseConnection();
             
-            IsCompleted = true;
             _logger.LogInformation("New rental has been made.");
+            return true;
         }
         catch (Exception e)
         {
             _logger.LogError("Error while making new rental: {ErrorMessage}", e.Message);
-            IsCompleted = false;
+            return false;
         }
         finally
         {
@@ -113,7 +110,7 @@ public class DataBaseService
     ///     Deletes all rentals from the database.
     /// </summary>
     /// <param name="id"></param>
-    public void DeleteRental(int id)
+    public bool DeleteRental(int id)
     {
         try
         {
@@ -126,13 +123,13 @@ public class DataBaseService
             command.ExecuteNonQuery();
             _dbContext.SaveChanges();
             _dbContext.Database.CloseConnection();
-            IsCompleted = true;
             _logger.LogInformation("Rental has been deleted.");
+            return true;
         }
         catch (Exception e)
         {
             _logger.LogError("Error deleting rental: {ErrorMessage}", e.Message);
-            IsCompleted = false;
+            return false;
         }
         finally
         {
@@ -146,7 +143,7 @@ public class DataBaseService
     /// <param name="id"></param>
     /// <param name="returnDate"></param>
     /// <param name="comments"></param>
-    public void ReturnCar(int id, DateTime returnDate, string? comments)
+    public bool ReturnCar(int id, DateTime returnDate, string? comments)
     {
         try
         {
@@ -162,14 +159,14 @@ public class DataBaseService
             command.ExecuteNonQuery();
             _dbContext.SaveChanges();
             _dbContext.Database.CloseConnection();
-            
-            IsCompleted = true;
+
             _logger.LogInformation("Car with id {Id} returned", id);
+            return true;
         }
         catch (Exception e)
         {
             _logger.LogError("Error deleting rental: {ErrorMessage}", e.Message);
-            IsCompleted = false;
+            return false;
         }
         finally
         {
