@@ -18,9 +18,10 @@ public class CreateRentalCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        _dbService.MakeNewRental(_viewModel.DriverId, _viewModel.CarId, _viewModel.RentalDate, _viewModel.Comments);
+        var newRental = _dbService.MakeNewRental(_viewModel.DriverId, _viewModel.CarId,
+            _viewModel.RentalDate, _viewModel.Comments);
 
-        if (_dbService.IsCompleted)
+        if (newRental)
         {
             MessageBox.Show("Rental created successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             foreach (var item in _viewModel.Cars.ToList().Where(x => x.Id == _viewModel.CarId))

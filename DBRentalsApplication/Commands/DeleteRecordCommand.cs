@@ -17,21 +17,20 @@ public class DeleteRecordCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        var result = MessageBox.Show("Are you sure you want to delete this record?", "Delete Record",
+        var showDialog = MessageBox.Show("Are you sure you want to delete this record?", "Delete Record",
             MessageBoxButton.OKCancel, MessageBoxImage.Question);
-        
-        if (result == MessageBoxResult.OK)
-        {
-            _dbService.DeleteRental(_deleteRentalViewModel.Rental.Id);
-            _deleteRentalViewModel.RentalList.Remove(_deleteRentalViewModel.Rental);
-        }
 
-        if (_dbService.IsCompleted)
+        if (showDialog == MessageBoxResult.OK)
         {
-            MessageBox.Show("Record deleted successfully", "Delete Record", MessageBoxButton.OK, MessageBoxImage.Information);
-            return;
+            var deleteRecord = _dbService.DeleteRental(_deleteRentalViewModel.Rental.Id);
+            if (deleteRecord)
+            {
+                _deleteRentalViewModel.RentalList.Remove(_deleteRentalViewModel.Rental);
+                MessageBox.Show("Record deleted successfully", "Delete Record", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }    
+
+            MessageBox.Show("Record not deleted", "Delete Record", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        
-        MessageBox.Show("Record not deleted", "Delete Record", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

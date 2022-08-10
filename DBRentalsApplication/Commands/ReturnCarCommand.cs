@@ -18,10 +18,10 @@ public class ReturnCarCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        _dbService.ReturnCar(_returnRentalViewModel.Id, _returnRentalViewModel.ReturnDate,
+        var carReturn = _dbService.ReturnCar(_returnRentalViewModel.Id, _returnRentalViewModel.ReturnDate,
             _returnRentalViewModel.Comments);
 
-        if (_dbService.IsCompleted)
+        if (carReturn)
         {
             MessageBox.Show("Car returned successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             foreach (var item in _returnRentalViewModel.RentedCars.ToList().Where(x => x.Id == _returnRentalViewModel.Id))
