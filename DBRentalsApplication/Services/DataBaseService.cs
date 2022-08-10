@@ -89,10 +89,12 @@ public class DataBaseService
             command.Parameters.Add(new SqlParameter("@CarId", carId));
             command.Parameters.Add(new SqlParameter("@RentDate", rentDate));
             command.Parameters.Add(new SqlParameter("@Comments", comments ?? (object)DBNull.Value));
+            
             _dbContext.Database.OpenConnection();
             command.ExecuteNonQuery();
             _dbContext.SaveChanges();
             _dbContext.Database.CloseConnection();
+            
             IsCompleted = true;
             _logger.LogInformation("New rental has been made.");
         }
@@ -160,6 +162,7 @@ public class DataBaseService
             command.ExecuteNonQuery();
             _dbContext.SaveChanges();
             _dbContext.Database.CloseConnection();
+            
             IsCompleted = true;
             _logger.LogInformation("Car with id {Id} returned", id);
         }
@@ -179,45 +182,57 @@ public class DataBaseService
     /// </summary>
     public void ExportDataToExel(string filePath)
     {
-        using var command = _dbContext.Database.GetDbConnection().CreateCommand();
-        command.CommandText = "RentalsInformation";
-        command.CommandType = CommandType.StoredProcedure;
-
-        _dbContext.Database.OpenConnection();
-
-        using var result = command.ExecuteReader();
-        var dateNow = DateTime.Now.ToString("dd-MM-yyyy");
-        var output = Path.Combine(filePath, $"RentalsInformation_{dateNow}.csv");
-
-        using var fs = new StreamWriter(output);
-
-        for (var i = 0; i < result.FieldCount; i++)
+        try
         {
-            var name = result.GetName(i);
-            if (name.Contains(','))
-                name = "\"" + name + "\"";
+            using var command = _dbContext.Database.GetDbConnection().CreateCommand();
+            command.CommandText = "RentalsInformation";
+            command.CommandType = CommandType.StoredProcedure;
 
-            fs.Write(name + ",");
-        }
+            _dbContext.Database.OpenConnection();
 
-        fs.WriteLine();
+            using var result = command.ExecuteReader();
+            var dateNow = DateTime.Now.ToString("dd-MM-yyyy");
+            var output = Path.Combine(filePath, $"RentalsInformation_{dateNow}.csv");
 
-        while (result.Read())
-        {
+            using var fs = new StreamWriter(output);
+
             for (var i = 0; i < result.FieldCount; i++)
             {
-                var value = result[i].ToString();
-                if (value != null && value.Contains(','))
-                    value = "\"" + value + "\"";
+                var name = result.GetName(i);
+                if (name.Contains(','))
+                    name = "\"" + name + "\"";
 
-                fs.Write(value + ",");
+                fs.Write(name + ",");
             }
 
             fs.WriteLine();
-        }
 
-        fs.Close();
-        _logger.LogInformation("Data exported to {FilePath}", output);
+            while (result.Read())
+            {
+                for (var i = 0; i < result.FieldCount; i++)
+                {
+                    var value = result[i].ToString();
+                    if (value != null && value.Contains(','))
+                        value = "\"" + value + "\"";
+
+                    fs.Write(value + ",");
+                }
+
+                fs.WriteLine();
+            }
+
+            fs.Close();
+            _dbContext.Database.CloseConnection();
+            _logger.LogInformation("Data exported to {FilePath}", output);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Error while exporting information to CSV: {ErrorMessage}", e.Message);
+        }
+        finally
+        {
+            _dbContext.Database.CloseConnection();
+        }
     }
 
     /// <summary>
@@ -255,9 +270,10 @@ public class DataBaseService
             var rentals = _dbContext.Rentals.Where(r => r.ReturnDate == null).ToList();
             var carsList = _dbContext.Cars.ToList();
             foreach (var car in carsList
-                         .Where(car => rentals
-                             .All(r => r.CarId != car.Id)))
+                         .Where(car => rentals.All(r => r.CarId != car.Id)))
+            {
                 cars.Add(car);
+            }
         }
         catch (Exception e)
         {
@@ -281,7 +297,9 @@ public class DataBaseService
             var carsList = _dbContext.Cars.ToList();
             foreach (var car in carsList
                          .Where(car => rentals.Any(r => r.CarId == car.Id)))
+            {
                 cars.Add(car);
+            }
         }
         catch (Exception e)
         {
