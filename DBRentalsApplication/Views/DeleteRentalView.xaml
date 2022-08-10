@@ -15,7 +15,7 @@
                       BorderBrush="Gray" BorderThickness="5" FontSize="16" Height="400" x:Name="dgCars">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Car Id" Binding="{Binding Path=CarId, Mode=TwoWay}"
-                                        IsReadOnly="True" CanUserReorder="False" Width="50" />
+                                        IsReadOnly="True" CanUserReorder="False" Width="55" />
                     <DataGridTextColumn Header="Driver Id" Binding="{Binding Path=DriverId, Mode=TwoWay}"
                                         IsReadOnly="True"
                                         CanUserReorder="False" />
@@ -35,7 +35,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Content="Back" FontSize="16" Command="{Binding Path=BackCommand}" Margin="10 400 10 0" Width="120"
-                    Height="40" />
+                    Height="40"/>
             <Button Content="Delete rental" FontSize="16" Command="{Binding Path=DeleteRental}" Margin="10 400 10 0"
                     Width="120"
                     Height="40">
