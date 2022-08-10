@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="500" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="800">
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label FontSize="16">All Drivers</Label>
@@ -37,9 +37,9 @@
             <TextBox Width="175" Height="25" Margin="0 0 600 0"
                      Text="{Binding Path=RentalDate, StringFormat=dd-MM-yyyy}" FontSize="16" />
             <Label FontSize="16">Comments</Label>
-            <TextBox Width="500" Height="175" Margin="0 0 275 0" Text="{Binding Path=Comments}" FontSize="16" />
+            <TextBox Width="500" Height="350" Margin="0 0 275 0" Text="{Binding Path=Comments}" FontSize="16" />
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Margin="0 200 0 0">
             <Button Content="Back" Command="{Binding Path=BackCommand}" Margin="10 400 10 0" Width="120" Height="40"
                     FontSize="16" />
             <Button Content="Add rental" Command="{Binding Path=CreateCommand}" Margin="10 400 10 0" Width="120"
