@@ -67,16 +67,5 @@ public class CreateRentalViewModel : ViewBaseModel
     public ICommand CreateCommand { get; }
 
     public ObservableCollection<Driver> Drivers { get; }
-
-    private ObservableCollection<Car> _cars;
-
-    public ObservableCollection<Car> Cars
-    {
-        get => _cars;
-        set
-        {
-            _cars = value;
-            OnPropertyChanged(nameof(Cars));
-        }
-    }
+    public ObservableCollection<Car> Cars { get; }
 }
