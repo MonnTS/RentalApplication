@@ -8,9 +8,18 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label FontSize="16">All Drivers</Label>
-            <ComboBox x:Name="cmbDrivers" ItemsSource="{Binding Path=Drivers}" DisplayMemberPath="Name"
+            <ComboBox x:Name="cmbDrivers" ItemsSource="{Binding Path=Drivers}"
                       SelectedValuePath="Id"
-                      SelectedValue="{Binding DriverId, Mode=TwoWay}" Width="175" Margin="0 0 600 0" FontSize="16" />
+                      SelectedValue="{Binding DriverId, Mode=TwoWay}" Width="175" Margin="0 0 600 0" FontSize="16">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name, StringFormat='{}Name: {0}' }" />
+                            <TextBlock Text="{Binding Path=Surname, StringFormat='{}Surname: {0}'}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Label FontSize="16">Cars</Label>
             <ComboBox x:Name="cmbCars" ItemsSource="{Binding Path=Cars, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Id" SelectedValue="{Binding Path=CarId, Mode=TwoWay}" Width="175"
